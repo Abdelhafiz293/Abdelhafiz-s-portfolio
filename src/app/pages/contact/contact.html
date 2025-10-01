@@ -1,0 +1,138 @@
+<div class="contact-container">
+  <!-- Header Section -->
+  <header class="contact-header">
+    <div class="header-content">
+      <h1 class="page-title">Get In Touch</h1>
+      <p class="page-subtitle">
+        Let's discuss your next project or just say hello!
+      </p>
+    </div>
+  </header>
+
+  <!-- Contact Content -->
+  <div class="contact-content">
+    <div class="contact-wrapper">
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <h2>Let's Connect</h2>
+        <p>
+          I'm always excited to work on new projects and collaborate with
+          amazing people. Whether you have a project in mind or just want to
+          chat about technology, feel free to reach out!
+        </p>
+
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="method-icon">📧</div>
+            <div class="method-info">
+              <h3>Email</h3>
+              <p>ahmedabdelhafiz293@gmail.com</p>
+              <p>Drop me a line anytime</p>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="method-icon">💼</div>
+            <div class="method-info">
+              <h3>Projects</h3>
+              <p>Let's build something amazing</p>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="method-icon">🤝</div>
+            <div class="method-info">
+              <h3>Collaboration</h3>
+              <p>Open to new opportunities</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-container">
+        <h2>Send a Message</h2>
+
+        <!-- Success Message -->
+        <div *ngIf="submitSuccess" class="success-message">
+          <h3>✅ Message Sent!</h3>
+          <p>Thank you for reaching out. I'll get back to you soon!</p>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="submitError" class="error-message">
+          <h3>⚠️ Error</h3>
+          <p>{{ submitError }}</p>
+        </div>
+
+        <!-- Contact Form -->
+        <form
+          [formGroup]="contactForm"
+          (ngSubmit)="onSubmit()"
+          class="contact-form"
+        >
+          <!-- Name Field -->
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="Your full name"
+              [class.error]="isFieldInvalid('name')"
+            />
+            <div *ngIf="isFieldInvalid('name')" class="field-error">
+              {{ getFieldError("name") }}
+            </div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              placeholder="your.email@example.com"
+              [class.error]="isFieldInvalid('email')"
+            />
+            <div *ngIf="isFieldInvalid('email')" class="field-error">
+              {{ getFieldError("email") }}
+            </div>
+          </div>
+
+          <!-- Message Field -->
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea
+              id="message"
+              formControlName="message"
+              rows="6"
+              placeholder="Tell me about your project or just say hello..."
+              [class.error]="isFieldInvalid('message')"
+            ></textarea>
+            <div *ngIf="isFieldInvalid('message')" class="field-error">
+              {{ getFieldError("message") }}
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="submit-btn"
+            [disabled]="isSubmitting"
+            [class.submitting]="isSubmitting"
+          >
+            <span *ngIf="!isSubmitting">Send Message</span>
+            <span *ngIf="isSubmitting">Sending...</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Section -->
+  <div class="back-section">
+    <button class="back-btn" routerLink="/home">← Back to Home🏠</button>
+  </div>
+</div>

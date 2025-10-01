@@ -1,0 +1,79 @@
+<div class="skills-container">
+  <header class="skills-header">
+    <div class="header-content">
+      <h1 class="page-title">My Skills</h1>
+      <p class="page-subtitle">Technologies and tools I work with</p>
+    </div>
+  </header>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading skills...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <div class="error-message">
+      <h3>⚠️ Error</h3>
+      <p>{{ error }}</p>
+     
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !error" class="skills-content">
+    <div class="category-filter">
+      <h3>Filter by Category</h3>
+      <div class="category-buttons">
+        <button
+          *ngFor="let category of skillCategories"
+          class="category-btn"
+          [class.active]="selectedCategory === category"
+          (click)="selectCategory(category)"
+        >
+          {{ category | titlecase }}
+        </button>
+      </div>
+    </div>
+
+    <div class="skills-grid">
+      <div
+        *ngFor="let skill of filteredSkills"
+        class="skill-card"
+      >
+        <div class="skill-icon-container" *ngIf="skill.iconUrl">
+          <img
+            [src]="skill.iconUrl"
+            [alt]="skill.name"
+            class="skill-icon"
+            (error)="onImageError($event)"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="skill-info">
+          <h3 class="skill-name">{{ skill.name }}</h3>
+          <p class="skill-category">{{ skill.category || "General" }}</p>
+
+          <div class="skill-level">
+            <span class="level-statement">Level: {{ skill.level }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="filteredSkills.length === 0" class="no-skills">
+      <div class="no-skills-message">
+        <h3>No skills found</h3>
+        <p *ngIf="selectedCategory !== 'all'">
+          No skills found in "{{ selectedCategory }}" category.
+        </p>
+        <p *ngIf="selectedCategory === 'all'">
+          No skills available at the moment.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-section">
+    <button class="back-btn" routerLink="/home">← Back to Home</button>
+  </div>
+</div>

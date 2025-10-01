@@ -1,0 +1,101 @@
+<div class="about-container">
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="hero-content">
+      <div class="profile-section">
+        <div *ngIf="isLoading" class="loading-placeholder">
+          <div class="spinner"></div>
+        </div>
+        <img
+          *ngIf="!isLoading && aboutInfo?.profileImageUrl"
+          [src]="aboutInfo?.profileImageUrl"
+          alt="Profile"
+          class="profile-image"
+          (error)="onImageError($event)"
+        />
+        <div
+          *ngIf="!isLoading && !aboutInfo?.profileImageUrl"
+          class="no-image-placeholder"
+        >
+          <span>👤</span>
+        </div>
+      </div>
+      <h1 class="about-title">About Me</h1>
+      <p class="about-subtitle">MEAN Full Stack Developer</p>
+    </div>
+  </section>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading about information...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-container">
+    <div class="error-message">
+      <h3>⚠️ Error</h3>
+      <p>{{ error }}</p>
+      <button class="retry-btn" (click)="loadAboutData()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- About Content -->
+  <div *ngIf="!isLoading && !error && aboutInfo" class="about-content">
+    <!-- Bio Section -->
+    <section class="bio-section">
+      <div class="section-content">
+        <h2 class="section-title">My Story</h2>
+        <p class="bio-text">
+          {{ aboutInfo?.description }}
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills Overview -->
+    <section class="skills-overview">
+      <div class="section-content">
+        <h2 class="section-title">What I Do</h2>
+        <div class="skills-grid">
+          <div class="skill-item">
+            <div class="skill-icon">🎨</div>
+            <h3>Frontend Development</h3>
+            <p>
+              Creating beautiful, responsive user interfaces with modern
+              frameworks
+            </p>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon">🗄️</div>
+            <h3>Backend Development</h3>
+            <p>Building robust server-side applications and APIs</p>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">🤝</div>
+            <h3>Full Stack Integration</h3>
+            <p>Connecting all pieces for seamless user experiences</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Info -->
+    <section class="contact-info">
+      <div class="section-content">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-details">
+          <p>
+            Feel free to reach out for collaborations or just a friendly hello!
+          </p>
+          <button class="contact-btn" routerLink="/contact">Contact Me</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-section">
+    <button class="back-btn" routerLink="/home">← Back to Home</button>
+  </div>
+</div>

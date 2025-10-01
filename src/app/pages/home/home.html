@@ -1,0 +1,82 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="profile-image-container">
+        <div *ngIf="isLoading" class="loading-placeholder">
+          <div class="spinner"></div>
+        </div>
+        <img
+          *ngIf="!isLoading && profileImageUrl"
+          [src]="profileImageUrl"
+          alt="Profile"
+          class="profile-image"
+          (error)="onImageError($event)"
+          (click)="navigateToAbout()"
+        />
+        <div
+          *ngIf="!isLoading && !profileImageUrl"
+          class="no-image-placeholder"
+          (click)="navigateToAbout()"
+        >
+          <span>👤</span>
+        </div>
+      </div>
+      <h1 class="hero-title">Welcome to My Portfolio</h1>
+      <p class="hero-subtitle">Full Stack Developer</p>
+      <p class="hero-description">
+        Passionate about creating innovative web solutions and bringing ideas to
+        life through code.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <h2 class="section-title">My Work</h2>
+    <div class="stats-grid">
+      <!-- Skills Card -->
+      <div class="stat-card skill" (click)="navigateToSkills()">
+        <div class="stat-icon">
+          <span class="icon">🎯</span>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number">
+            <span *ngIf="!isLoadingStats">{{ skillsCount }}</span>
+            <span *ngIf="isLoadingStats" class="loading-dots">...</span>
+          </h3>
+          <p class="stat-label">Skills</p>
+          <p class="stat-description">Technologies I master</p>
+        </div>
+      </div>
+
+      <!-- Projects Card -->
+      <div class="stat-card project" (click)="navigateToProjects()">
+        <div class="stat-icon">
+          <span class="icon">💼</span>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number">
+            <span *ngIf="!isLoadingStats">{{ projectsCount }}</span>
+            <span *ngIf="isLoadingStats" class="loading-dots">...</span>
+          </h3>
+          <p class="stat-label">Projects</p>
+          <p class="stat-description">Completed works</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Work Together?</h2>
+      <p>Let's discuss your next project</p>
+      <div class="cta-buttons">
+        <button class="btn btn-primary" (click)="navigateToContact()">
+          Contact Me  ✉︎
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

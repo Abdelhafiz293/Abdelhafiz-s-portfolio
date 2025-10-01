@@ -1,0 +1,110 @@
+<div class="projects-container">
+  <!-- Header Section -->
+  <header class="projects-header">
+    <div class="header-content">
+      <h1 class="page-title">My Projects</h1>
+      <p class="page-subtitle">A showcase of my work and achievements</p>
+      <div class="projects-count" *ngIf="!isLoading && !error">
+        <span class="count-number">{{ projects.length }}</span>
+        <span class="count-label">{{
+          projects.length === 1 ? "Project" : "Projects"
+        }}</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading projects...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-container">
+    <div class="error-message">
+      <h3>⚠️ Error</h3>
+      <p>{{ error }}</p>
+    </div>
+  </div>
+
+  <!-- Projects Content -->
+  <div *ngIf="!isLoading && !error" class="projects-content">
+    <!-- Projects Grid -->
+    <div class="projects-grid" *ngIf="projects.length > 0">
+      <div
+        *ngFor="let project of projects"
+        class="project-card"
+        (click)="project.link && openProject(project.link)"
+      >
+        <!-- Project Image -->
+        <div class="project-image-container">
+          <img
+            *ngIf="project.imageUrl"
+            [src]="project.imageUrl"
+            [alt]="project.title"
+            class="project-image"
+            (error)="onImageError($event)"
+            loading="lazy"
+          />
+          <div *ngIf="!project.imageUrl" class="no-image-placeholder">
+            <span>🖼️</span>
+          </div>
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+
+        <!-- Project Info -->
+        <div class="project-info">
+          <h3 class="project-title">{{ project.title }}</h3>
+          <p class="project-description">
+            {{
+              project.description ||
+                "An amazing project showcasing modern development practices."
+            }}
+          </p>
+
+          <!-- Technologies Used -->
+          <div
+            class="technologies"
+            *ngIf="project.technologies && project.technologies.length > 0"
+          >
+            <span class="tech-label">Technologies:</span>
+            <div class="tech-tags">
+              <span *ngFor="let tech of project.technologies" class="tech-tag">
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Project Link -->
+          <div class="project-actions">
+            <button
+              class="project-link-btn"
+              (click)="
+                project.link && openProject(project.link);
+                $event.stopPropagation()
+              "
+              *ngIf="project.link"
+            >
+               View LIVE🔴
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Projects State -->
+    <div *ngIf="projects.length === 0" class="no-projects">
+      <div class="no-projects-message">
+        <h3>No projects found</h3>
+        <p>No projects available at the moment.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Section -->
+  <div class="back-section">
+    <button class="back-btn" routerLink="/home">← Back to Home🏠</button>
+  </div>
+</div>
