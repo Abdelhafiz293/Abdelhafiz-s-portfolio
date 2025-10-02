@@ -18,7 +18,7 @@ body {
   min-width: 100vw;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   font-family: "Inter", sans-serif;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
 }
